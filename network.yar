@@ -9,7 +9,7 @@ rule UsesDiscordWebhook : suspicious {
 
     strings:
 		/* Discord webhook looks like: https://discord.com/api/webhooks/{number}/{token} */
-        $webhook = /https?:\/\/*discord\.com\/api\/webhooks\/\d+\/.{68}/ ascii wide
+        $webhook = /https?:\/\/.*discord\.com\/api\/webhooks\/\d+\/.{68}/ ascii wide
 
     condition:
         $webhook
@@ -27,7 +27,8 @@ rule DiscordPyFramework : tool {
 
     strings:
         $ = "discord.ext"
+        $ = /load PyInstaller/i
 
     condition:
-        any of them
+        all of them
 }

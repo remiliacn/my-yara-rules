@@ -31,3 +31,20 @@ rule Taskkill : suspicious {
     condition:
         any of them
 }
+
+rule DiamondRansomware : ransomware {
+    meta:
+        name        = "DiamondRansomware"
+        category    = "destruction"
+        description = "String commonly used in diamond ransomware"
+        author      = "remiliacn"
+        created     = "2024-12-10"
+        reliability = 60
+        tlp         = "TLP:red"
+
+	strings:
+		$ = "[Diamond Ransomware]"
+
+    condition:
+        any of them
+}

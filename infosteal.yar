@@ -17,6 +17,24 @@ rule DiscordTokenStealer : malware {
         $token and ($discord_db or $discord_canary_db or $discord_ptb_db)
 }
 
+rule ExelaStealer : malware {
+    meta:
+        name        = "ExelaStealer"
+        category    = "stealer"
+        description = "Match ExelaStealer"
+        author      = "remiliacn"
+        created     = "2024-12-11"
+        reliability = 70
+        tlp         = "TLP:red"
+
+    strings:
+        $ = "Exela Services" wide
+		$ = "load PyInstaller" wide
+
+    condition:
+        all of them
+}
+
 rule PysilonStealerMatcher : malware {
     meta:
         name        = "PysilonStealerMatcher"
@@ -64,4 +82,24 @@ rule RayxStealer : malware {
 
     condition:
         any of them
+}
+
+rule LunaGrabber : malware {
+	meta:
+        name        = "LunaGrabberEntry"
+        category    = "stealer"
+        description = "Matches Luna Grabber Rule For Entry"
+        author      = "remiliacn"
+        created     = "2024-12-12"
+        reliability = 50
+        tlp         = "TLP:amber"
+
+    strings:
+        $weird_lines = /(_{8,}..){4,}/
+		$decode = "decode"
+		$eval = "eval"
+
+    condition:
+        all of them
+
 }
